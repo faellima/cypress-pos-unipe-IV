@@ -23,3 +23,15 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import ticketsPage from "../pages/Tickets/TicketsPages"
+
+Cypress.Commands.add("fillMandatoryFields", () => {
+    cy.fixture("user.json").then((user) => {
+        ticketsPage.FirstName.type(user.name);
+        ticketsPage.LastName.type(user.lastName);
+        ticketsPage.Email.type(user.email);
+    })
+
+    ticketsPage.Agree.check();
+    ticketsPage.SubmitButton.click();
+})
